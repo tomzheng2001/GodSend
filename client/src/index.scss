@@ -1,0 +1,150 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.AuthScreen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.AuthBox {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: beige;
+  
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+}
+
+.sidebar {
+  width: 20%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: blanchedalmond;
+
+  &__heading {
+    font-size: 2rem;
+  }
+
+  &__users {
+    display: flex;
+    flex-direction: column;
+    border-top: 2px solid black;
+    width: 100%;
+  }
+}
+
+#submit {
+  margin-top: 1rem;
+}
+
+.usercard {
+  background-color: green;
+  border-bottom: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding-left: 1rem;
+
+  &__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    background-color: white;
+    cursor: pointer;
+  }
+}
+
+.Home {
+  display: flex;
+  align-items: center;
+}
+
+.welcome {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ChatScreen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-color: beige;
+  padding-left: 1.5rem;
+
+  &__heading {
+    display: flex;
+    align-items: center;
+    height: 10%;
+  }
+
+  &__messages {
+    height: 80%;
+    overflow-y: auto;
+    display: flex; 
+    flex-direction: column;
+    padding-right: 1.5rem;
+  }
+
+  &__enter {
+    display: flex;
+    align-self: center;
+    width: 90%;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+
+    input {
+      width: 100%;
+      height: 2rem;
+    }
+  }
+}
+
+
+.MessageCard {
+
+
+  &__text {
+    background-color: green;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    color: white;
+  }
+
+  &__date {
+    margin-top: -1rem;
+    font-size: 0.8rem;
+  }
+}

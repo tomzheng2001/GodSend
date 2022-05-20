@@ -34,7 +34,7 @@ type Message{
 
 
 type Mutation{
-  signupUser(userNew:UserInput!):User
+  signupUser(userInfo:UserInput!):User
   signinUser(userSignin:UserSigninInput!):Token
   createMessage(receiverId:Int!,text:String!):Message
 }

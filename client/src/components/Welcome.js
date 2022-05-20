@@ -1,16 +1,11 @@
-import React from 'react'
-import { Stack, Typography } from '@mui/material';
+import React from "react";
 
 const Welcome = () => {
-  return (
-    <Stack
-    justifyContent="center"
-    alignItems="center"
-    flexGrow={1}
-    >
-        <Typography variant="h2">Welcome to teams</Typography>
-    </Stack>
-  )
+    return (
+        <div className="welcome">
+            <h1>Welcome!</h1>
+        </div>
+    )
 }
 
-export default Welcome
+export default Welcome;

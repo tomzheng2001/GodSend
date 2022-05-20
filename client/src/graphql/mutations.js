@@ -1,25 +1,24 @@
-import {gql} from '@apollo/client'
+import { gql } from '@apollo/client'
 
 export const SIGNUP_USER = gql`
-mutation SignupUser($userNew: UserInput!) {
-    signupUser(userNew: $userNew) {
+mutation SignupUser($userInfo: UserInput!) {
+    signupUser(userInfo: $userInfo) {
       id
       email
       firstName
       lastName
     }
-  }
+}
 `
 
 export const LOGIN_USER = gql`
-mutation SigninUser($userSignin: UserSigninInput!) {
-    signinUser(userSignin: $userSignin) {
-       token
-    }
+  mutation SigninUser($userSignin: UserSigninInput!) {
+  signinUser(userSignin: $userSignin) {
+    token
   }
+}
 `
-
-export const SEND_MSG = gql`
+export const SEND_MESSAGE = gql`
   mutation CreateMessage($receiverId: Int!, $text: String!) {
     createMessage(receiverId: $receiverId, text: $text) {
       id

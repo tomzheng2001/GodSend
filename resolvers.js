@@ -45,13 +45,13 @@ const resolvers = {
   },
 
   Mutation: {
-    signupUser: async (_, { userNew }) => {
-      const user = await prisma.user.findUnique({ where: { email: userNew.email } })
+    signupUser: async (_, { userInfo }) => {
+      const user = await prisma.user.findUnique({ where: { email: userInfo.email } })
       if (user) throw new AuthenticationError("User already exists with that email")
-      const hashedPassword = await bcrypt.hash(userNew.password, 10)
+      const hashedPassword = await bcrypt.hash(userInfo.password, 10)
       const newUser = await prisma.user.create({
         data: {
-          ...userNew,
+          ...userInfo,
           password: hashedPassword
         }
       })
@@ -59,7 +59,7 @@ const resolvers = {
     },
     signinUser: async (_, { userSignin }) => {
       const user = await prisma.user.findUnique({ where: { email: userSignin.email } })
-      if (!user) throw new AuthenticationError("User dosen't exists with that email")
+      if (!user) throw new AuthenticationError("User doesn't exist with that email")
       const doMatch = await bcrypt.compare(userSignin.password, user.password)
       if (!doMatch) throw new AuthenticationError("email or password is invalid")
       const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET)
