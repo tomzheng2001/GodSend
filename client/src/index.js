@@ -26,11 +26,11 @@ const authLink = setContext((_, { headers }) => {
 
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:3000/graphql'
+  uri: 'https://god-send.herokuapp.com/graphql'
 });
 
 const wsLink = new GraphQLWsLink(createClient({
-  url: 'ws://localhost:3000/graphql',
+  url: 'wss://god-send.herokuapp.com/graphql',
 }));
 
 const splitLink = split(
