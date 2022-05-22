@@ -1,15 +1,15 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery, useSubscription } from '@apollo/client';
 import React,{useRef, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { GET_MESSAGES } from '../graphql/queries';
 import MessageCard from './MessageCard';
-import SendIcon from '@mui/icons-material/Send'
 import { SEND_MESSAGE } from '../graphql/mutations';
+import { MSG_SUB } from '../graphql/subscriptions';
 
 
 const ChatScreen = () => {
   const {id,name} = useParams()
-  const [text, setText] = useState()
+  const [text, setText] = useState("")
   const [messages, setMessages] = useState([])
   const {loading, error , data} = useQuery(GET_MESSAGES, {
     variables: {
@@ -20,17 +20,22 @@ const ChatScreen = () => {
   })
   const chatWindowRef = useRef(null)
 
-  const [sendMessage] = useMutation(SEND_MESSAGE, {
-    onCompleted(data) {
-      setMessages((prevMessages) => [...prevMessages, data.createMessage])
-      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight
+  const [sendMessage] = useMutation(SEND_MESSAGE)
+
+  const { data:subData } = useSubscription(MSG_SUB, {
+    onSubscriptionData({subscriptionData:{data}}) {
+
+        setMessages((prevMessages) => [...prevMessages, data.messageAdded])
+        chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight
+      
     }
   })
 
+  if (subData) console.log(subData)
 
   if (loading) {
     return 'Loading...';
-}
+  }
 
   if (error) return `Error! ${error.message}`;
   
@@ -43,21 +48,21 @@ const ChatScreen = () => {
         <div ref={chatWindowRef} className="ChatScreen__messages">
             {
               messages.map(msg => {
-                  return <MessageCard text={msg.text} date={msg.createdAt} direction={msg.senderId == id ? "start" : "end"} />
+                  return <MessageCard key={msg.id} text={msg.text} date={msg.createdAt} direction={msg.senderId == id ? "start" : "end"} />
               })
             }
 
         </div>
         <div className="ChatScreen__enter">
             <input value={text} onChange={e => setText(e.target.value)} placeholder="Enter a message" className="ChatScreen__enter-input" type="text" />
-            <SendIcon fontSize="large" onClick = {() => {
+            <button fontSize="large" onClick = {() => {
               sendMessage({
                 variables: {
                   receiverId: +id,
                   text: text
                 }
               })
-            }} />
+            }}><span>send</span></button>
         </div>
     </div>
   )

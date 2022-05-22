@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import UserCard from "./UserCard";
-import LogoutIcon from '@mui/icons-material/Logout';
 import { useQuery } from "@apollo/client";
 import { GET_ALL_USERS } from "../graphql/queries";
 
@@ -18,11 +17,8 @@ const SideBar = ({ setLoggedIn }) => {
 
     return (
         <div className="sidebar">
-            <h3 className="sidebar__heading">Chat</h3>
-            <LogoutIcon onClick={() => {
-                localStorage.removeItem('jwt')
-                setLoggedIn(false)
-            }} />
+            {/* <h3 className="sidebar__heading">Chat</h3> */}
+            <img className="sidebar__logo" src="/logo.png" alt="logo" />
             <div className="sidebar__users">
                 {
                     data.users.map(item => {
@@ -30,6 +26,10 @@ const SideBar = ({ setLoggedIn }) => {
                     })
                 }
             </div>
+            <button onClick={() => {
+                localStorage.removeItem('jwt')
+                setLoggedIn(false)
+            }}><span>Sign Out</span></button>
         </div>
     )
 }
